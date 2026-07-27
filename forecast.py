@@ -21,7 +21,7 @@ url = (
 )
 
 data = requests.get(url).json()
-df = pd.DataFrame(data["daily"])
+
 
 
 
