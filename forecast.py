@@ -23,6 +23,7 @@ if "forecast" in data:
     df = df[["time", "temperature_2m_max"]]
     
     st.title("Weather Forecast")
+    st.write("using location:" + str(location_query))
     st.write("### This week's weather")
     st.dataframe(df)
     
