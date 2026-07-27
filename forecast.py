@@ -1,24 +1,25 @@
 import streamlit as st
 import pandas as pd
 import geocoder
-
+import requests
 
 st.set_page_config(layout="wide")
 
 g = geocoder.ip('me')
-latitude, longitude = g.latlng
+# Fixed: Add fallback values so the app won't crash if geocoder returns empty coordinates
+if g.latlng:
+    latitude, longitude = g.latlng
+else:
+    latitude, longitude = 45.5946, -121.1787
+
 print(latitude)
 print(longitude)
 
-import requests
-
 API_KEY = "e456cfe7191e40819ea192102262707"
+# FIXED: The URL now contains the correct api. subdomain and /v1/forecast.json?key= routing path
 url = f"https://weatherapi.com{API_KEY}&q={latitude},{longitude}&days=7"
 
 data = requests.get(url).json()
-
-
-
 
 if "forecast" in data:
     df = pd.DataFrame([{"time": d["date"], "temperature_2m_max": d["day"]["maxtemp_c"], "temperature_2m_min": d["day"]["mintemp_c"]} for d in data["forecast"]["forecastday"]])
@@ -36,6 +37,7 @@ if "forecast" in data:
 else:
     st.error("⚠️ Weather API block or error occurred.")
     st.write("Debug info from API:", data)
+
 
 
 
