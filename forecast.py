@@ -6,18 +6,14 @@ import requests
 st.set_page_config(layout="wide")
 
 g = geocoder.ip('me')
-# Fixed: Add fallback values so the app won't crash if geocoder returns empty coordinates
-if g.latlng:
-    latitude, longitude = g.latlng
-else:
-    latitude, longitude = 45.5946, -121.1787
-    print("using default value temperature")
 
-print(latitude)
-print(longitude)
+if g.city and g.country:
+    location_query = f"{g.city},{g.country}"
+
+print(location_query)
 
 API_KEY = "e456cfe7191e40819ea192102262707"
-url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={latitude},{longitude}&days=7"
+url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location_query}&days=7"
 
 data = requests.get(url).json()
 
