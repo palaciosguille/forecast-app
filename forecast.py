@@ -17,7 +17,7 @@ print(longitude)
 
 API_KEY = "e456cfe7191e40819ea192102262707"
 # FIXED: The URL now contains the correct api. subdomain and /v1/forecast.json?key= routing path
-url = f"https://weatherapi.com{API_KEY}&q={latitude},{longitude}&days=7"
+url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={latitude},{longitude}&days=7"
 
 data = requests.get(url).json()
 
