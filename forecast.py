@@ -25,25 +25,22 @@ df = pd.DataFrame(data["daily"])
 
 
 
-st.title("Weather Forecast")
-
-st.markdown("#### ") 
-
-st.write("### This week's weather")
-
-st.dataframe(df)
-
-st.markdown("### ") 
-
-st.write("### Representation of this week's weather")
-
-st.bar_chart(df, x="time", y="temperature_2m_max")
-
-st.markdown("### ") 
-
-st.write("### today's max and min temperatures")
-
-st.line_chart(df[["temperature_2m_max", "temperature_2m_min"]])
+if "daily" in data:
+    df = pd.DataFrame(data["daily"])
+    
+    st.title("Weather Forecast")
+    st.write("### This week's weather")
+    st.dataframe(df)
+    
+    st.write("### Representation of this week's weather")
+    st.bar_chart(df, x="time", y="temperature_2m_max")
+    
+    st.write("### today's max and min temperatures")
+    chart_data = df.set_index("time")[["temperature_2m_max", "temperature_2m_min"]]
+    st.line_chart(chart_data)
+else:
+    st.error("⚠️ Weather API block or error occurred.")
+    st.write("Debug info from API:", data)
 
 
 
