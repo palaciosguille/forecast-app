@@ -21,13 +21,7 @@ data = requests.get(url).json()
 
 
 if "forecast" in data:
-    df = pd.DataFrame([
-        {
-            "time": day["date"],
-            "temperature_2m_max": day["day"]["maxtemp_c"],
-            "temperature_2m_min": day["day"]["mintemp_c"]
-        } for day in data["forecast"]["forecastday"]
-    ])
+    df = pd.DataFrame([{"time": d["date"], "temperature_2m_max": d["day"]["maxtemp_c"], "temperature_2m_min": d["day"]["mintemp_c"]} for d in data["forecast"]["forecastday"]])
     
     st.title("Weather Forecast")
     st.write("### This week's weather")
