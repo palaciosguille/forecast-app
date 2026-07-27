@@ -12,6 +12,8 @@ if g.city and g.country:
 
 print(location_query)
 
+st.title("Weather Forecast")
+
 location_query = st.text_input("Enter your city and country:", "Roseau,Dominica")
 
 API_KEY = "e456cfe7191e40819ea192102262707"
@@ -24,7 +26,6 @@ if "forecast" in data:
 
     df = df[["time", "temperature_2m_max"]]
     
-    st.title("Weather Forecast")
     st.write("using location: " + str(location_query))
     st.write("### This week's weather")
     st.dataframe(df)
