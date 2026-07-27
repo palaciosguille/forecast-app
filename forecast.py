@@ -12,6 +12,8 @@ if g.city and g.country:
 
 print(location_query)
 
+location_query = st.text_input("Enter your city and country:", "")
+
 API_KEY = "e456cfe7191e40819ea192102262707"
 url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location_query}&days=7"
 
