@@ -12,21 +12,22 @@ print(longitude)
 
 import requests
 
-url = (
-    f"https://api.open-meteo.com/v1/forecast"
-    f"?latitude={latitude}"
-    f"&longitude={longitude}"
-    f"&daily=temperature_2m_max,temperature_2m_min"
-    f"&timezone=auto"
-)
+API_KEY = "e456cfe7191e40819ea192102262707"
+url = f"https://weatherapi.com{API_KEY}&q={latitude},{longitude}&days=7"
 
 data = requests.get(url).json()
 
 
 
 
-if "daily" in data:
-    df = pd.DataFrame(data["daily"])
+if "forecast" in data:
+    df = pd.DataFrame([
+        {
+            "time": day["date"],
+            "temperature_2m_max": day["day"]["maxtemp_c"],
+            "temperature_2m_min": day["day"]["mintemp_c"]
+        } for day in data["forecast"]["forecastday"]
+    ])
     
     st.title("Weather Forecast")
     st.write("### This week's weather")
