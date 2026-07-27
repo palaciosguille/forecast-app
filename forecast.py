@@ -33,8 +33,8 @@ if "forecast" in data:
     st.write("### Representation of this week's weather")
     st.bar_chart(df, x="time", y="temperature_2m_max")
     
-    st.write("### today's max and min temperatures")
-    chart_data = df.set_index("time")[["temperature_2m_max"]]
+    st.write("### week's max temperatures")
+    chart_data = df.set_index("time")[["temperature_2m_max"]].tail(7)
     st.line_chart(chart_data)
 else:
     st.error("⚠️ Weather API block or error occurred.")
