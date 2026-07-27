@@ -35,7 +35,6 @@ if "forecast" in data:
     
     st.write("### week's max temperatures")
     chart_data = df.set_index("time")[["temperature_2m_max"]].tail(7)
-    chart_data.loc["baseline"] = 0 
     st.line_chart(chart_data)
 else:
     st.error("⚠️ Weather API block or error occurred.")
