@@ -23,6 +23,8 @@ data = requests.get(url).json()
 
 if "forecast" in data:
     df = pd.DataFrame([{"time": d["date"], "temperature_2m_max": d["day"]["maxtemp_c"], "temperature_2m_min": d["day"]["mintemp_c"]} for d in data["forecast"]["forecastday"]])
+
+    df = df[["time", "temperature_2m_max"]]
     
     st.title("Weather Forecast")
     st.write("### This week's weather")
@@ -32,7 +34,7 @@ if "forecast" in data:
     st.bar_chart(df, x="time", y="temperature_2m_max")
     
     st.write("### today's max and min temperatures")
-    chart_data = df.set_index("time")[["temperature_2m_max", "temperature_2m_min"]]
+    chart_data = df.set_index("time")[["temperature_2m_max"]]
     st.line_chart(chart_data)
 else:
     st.error("⚠️ Weather API block or error occurred.")
