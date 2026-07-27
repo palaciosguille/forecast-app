@@ -17,6 +17,7 @@ url = (
     f"?latitude={latitude}"
     f"&longitude={longitude}"
     f"&daily=temperature_2m_max,temperature_2m_min"
+    f"&timezone=auto"
 )
 
 data = requests.get(url).json()
